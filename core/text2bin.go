@@ -5,7 +5,7 @@ import (
 	"io"
 	"strconv"
 	"sync"
-	"text2bin/core/util"
+	"text2binary/core/util"
 )
 
 // encoder Provides functions for encoding
