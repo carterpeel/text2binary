@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"text2bin/core"
+	"text2binary/core"
 )
 
 var (
