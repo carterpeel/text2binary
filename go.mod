@@ -1,3 +1,3 @@
-module text2bin
+module text2binary
 
 go 1.17
