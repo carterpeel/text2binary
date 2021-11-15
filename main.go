@@ -8,9 +8,9 @@ import (
 )
 
 var (
-	text string
-	help bool
-	delim string
+	text   string
+	help   bool
+	delim  string
 	bufLen int64
 )
 
@@ -39,6 +39,11 @@ func main() {
 	//
 	// ₜₕᵢₛ ᵢₛ ₐ ⱼₒₖₑ, ⱼₐᵥₐ ᵢₛ ₒₖ
 	if (inStat.Mode() & os.ModeCharDevice) == 0 {
+		defer func() {
+			// Write a newline byte because no one
+			// likes that ugly EOL '%' character in ZSH
+			_, _ = os.Stdout.Write([]byte{'\n'})
+		}()
 		if err := conv.ConvertAndWrite(os.Stdin, os.Stdout, bufLen, []byte(delim)); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "%v\n", err)
 			os.Exit(1)
@@ -49,7 +54,7 @@ func main() {
 	// If the text flag was empty or the help flag
 	// was invoked, print the defaults for all flags & their
 	// descriptions.
-	if len(text) <= 0  || help {
+	if len(text) <= 0 || help {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}

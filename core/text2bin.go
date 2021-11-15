@@ -11,8 +11,8 @@ import (
 // encoder Provides functions for encoding
 // data into its binary value.
 type encoder struct {
-	readBuf  []byte
-	mu sync.Mutex
+	readBuf []byte
+	mu      sync.Mutex
 }
 
 // ConvertAndWrite uses reader and writer interfaces to stream encoded binary data.
@@ -59,10 +59,6 @@ func (c *encoder) ConvertAndWrite(src io.Reader, dst io.Writer, bufLen int64, de
 		}
 	}
 
-	// Write a newline byte because no one
-	// likes that ugly EOL '%' character in ZSH
-	_, _ = dst.Write([]byte{'\n'})
-
 	// If it's EOF, that's expected so just return a nil error.
 	// If not, something is definitely wrong - so we return the actual error
 	if err == io.EOF || err == nil {
@@ -74,7 +70,7 @@ func (c *encoder) ConvertAndWrite(src io.Reader, dst io.Writer, bufLen int64, de
 
 // Result allows for multiple return types of the same binary result.
 type Result struct {
-	val []int
+	val   []int
 	delim []byte
 }
 
@@ -82,7 +78,7 @@ type Result struct {
 // a binary format.
 func NewEncoder() *encoder {
 	return &encoder{
-		readBuf:  nil,
+		readBuf: nil,
 	}
 }
 
@@ -141,4 +137,3 @@ func (r *Result) Bytes() (b []byte) {
 	}
 	return
 }
-
