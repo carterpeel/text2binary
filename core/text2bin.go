@@ -15,6 +15,12 @@ type encoder struct {
 	mu      sync.Mutex
 }
 
+// Result allows for multiple return types of the same binary result.
+type Result struct {
+	val   []int
+	delim []byte
+}
+
 // ConvertAndWrite uses reader and writer interfaces to stream encoded binary data.
 //
 //
@@ -66,12 +72,6 @@ func (c *encoder) ConvertAndWrite(src io.Reader, dst io.Writer, bufLen int64, de
 	} else {
 		return err
 	}
-}
-
-// Result allows for multiple return types of the same binary result.
-type Result struct {
-	val   []int
-	delim []byte
 }
 
 // NewEncoder initializes a new encoder which can be used to convert data to
